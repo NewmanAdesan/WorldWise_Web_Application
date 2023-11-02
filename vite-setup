@@ -1,0 +1,15 @@
+STEP 1:
+    - create a vite app "npm create vite@4" in the folder you want your app folder to be.
+    - choose a project name, choose a framework "react, javascript"
+    - install the dependencies manually "npm i"
+    - delete the css files "index.css, App.css". we would create a new one
+    - delete the code in "App.jsx" and use rafce to scafold a new component
+
+
+STEP 2:
+    - Setting Up ESlint "npm install eslint vite-plugin-eslint eslint-config-react-app --save-dev"
+    - @.eslintrc.cjs add {"extends": "react-app"}
+    - @vite.config.js we will add the eslint plugin
+            import eslint from "vite-plugin-eslint"
+            ...plugins: [react(), eslint()]
+    
