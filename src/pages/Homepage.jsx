@@ -19,3 +19,20 @@ export default function Homepage() {
     </main>
   );
 }
+
+/**
+ * 1) add the "start tracking now" link to the homepage
+ * 1a) using react router, it links to the applayout page
+ * 1b) add the class "cta" to the Link element
+ * 2) add the page navigation to the homepage via the PageNav component
+ * 2a) 
+ * 
+ */
+
+/*
+ * we have a nav element which encapsulate and image element & ul element
+ * the ul element encapulast 3 li element "pricing", product", "login"
+ * the li element encapsulate a NavLink element which redirect TO a specific page.
+ * the nav element has the css modules className "styles.nav"
+ * the login NavLink has a className "ctaLink"
+*/
