@@ -1,29 +1,3 @@
-import styles from "./Homepage.module.css";
-import {Link} from "react-router-dom"
-import PageNav from "../components/PageNav";
-
-
-
-export default function Homepage() {
-  return (
-    <main className={styles.homepage}>
-      <PageNav />
-      <section>
-        <h1>
-          You travel the world.
-          <br />
-          WorldWise keeps track of your adventures.
-        </h1>
-        <h2>
-          A world map that tracks your footsteps into every city you can think
-          of. Never forget your wonderful experiences, and show your friends how
-          you have wandered the world.
-        </h2>
-        <Link to='/app' className='cta'>Start Tracking Now</Link>
-      </section>
-    </main>
-  );
-}
 
 
 /**
@@ -44,3 +18,17 @@ export default function Homepage() {
  * 2h) encapsulate the PageNav logo in a Link compoment so it redirects to the homepage
  * 3) add the page navigation component to the Pricing, Product & Login page
  */
+
+
+ Step 2: BareBone Structure of the Application
+ 1) the AppLayout page component encapsulate 2 component, the SideBar Component & the Map Component
+ 2) Create a SideBar component & add to the AppLayout page component
+ 2a) it renders a div element with className 'styles.sidebar'
+ 2b) the div element encapsulate the Logo Component, a AppNav Component, a p tag & a footer element
+ 2c) add the Logo Component
+ 2c) Create the AppNav Component which render a nav element which renders a ul element with renders 2 li-NavLink element 'Cities & Countries'
+ 2d) add the p element whose text content states "List of Cities"
+ 2e) add the footer element which has a className "styles.footer" and it encapsulate the p element "&copy; Copyright 2023 by WorldWise Inc." with className "styles.copyright"
+ 3) Create the Map component
+ 3a) it renders a div element with className 'styles.mapContainer' with a textContent saying 'Map'
+ 

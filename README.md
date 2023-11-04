@@ -58,6 +58,11 @@ Routing with react router
 
 
 
+Nested Route & Index Route
+
+
+
+
 STYLING OPTIONS IN REACT APPLICATIONS
 
 |Styling Options | Where? | How? |  Scope | Based On
