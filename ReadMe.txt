@@ -20,7 +20,7 @@
  */
 
 
- Step 2: BareBone Structure of the Application
+ Step 2: BareBone Structure of the Application Page
  1) the AppLayout page component encapsulate 2 component, the SideBar Component & the Map Component
  2) Create a SideBar component & add to the AppLayout page component
  2a) it renders a div element with className 'styles.sidebar'
@@ -31,4 +31,5 @@
  2e) add the footer element which has a className "styles.footer" and it encapsulate the p element "&copy; Copyright 2023 by WorldWise Inc." with className "styles.copyright"
  3) Create the Map component
  3a) it renders a div element with className 'styles.mapContainer' with a textContent saying 'Map'
+
  

@@ -58,7 +58,69 @@ Routing with react router
 
 
 
-Nested Route & Index Route
+Nested Route 
+    - we need nested route when a part of the user interface of our page component (UI VIEW) is to be controlled by a part of the URL
+    - think of this matching; "./app" --> <HomePage />
+    - then in our HomePage Component, we would render other componenets but two will be mutually exclusive. the Cities & Country component
+    - we want the Cities component to display when the URL is "./app/cities"
+    - we want the Countries coomponent to display when the URL is "./app/countries"
+
+    [STEP1 - CREATING THE NESTED ROUTE]
+        @App.jsx
+            ...
+            <Route path='/' element={<HomePage />}>
+                <Route path='cities' element={<Cities />} />
+                <Route path='countries' element={<Countries>}>
+            </Route>
+
+
+    [STEP2 - CREATING THE NESTED ROUTE LINKS]
+        @HomePage.jsx
+            ...
+            <nav>
+                <ul>
+                    <li><NavLink to='cities'>Cities</NavLink></li>
+                    <li><NavLink to='countries'>Countries</NavLink></li>
+                </ul>
+            </nav>
+            ...
+
+
+    [STEP3 - SPECIFY THE POSITION OF THE NESTED ROUTE UI]
+        @HomePage.jsx
+            ...
+            <nav>...</nav>
+            <Outlet />
+            ...
+
+    - intrisically the `Cities & Countries Component` was passed to the `HomePage Component`
+    - then the HomePage Component was told when to display which based on the browser URL
+
+
+Index Route 
+    - think of a route (`.../app` --> `<HomePage />`)
+    - think of this route having 2 nested routes 
+    - (`.../app/cities` --> `<Cities />`) 
+    - (`.../app/countries` --> `<Countries />`)
+
+    - now if the browser URL is set at `.../app`, which of the two components will be displayed?
+    - we may need a way to set it so that one of the components will be displayed by default.
+    - this is where `INDEX ROUTE` comes in by using the `INDEX PROPERTY`
+        @App.jsx
+            ...
+            <Route path='/' element={<HomePage />}>
+                <Route index path='cities' element={<Cities />} />
+                <Route path='countries' element={<Countries>}>
+            </Route>
+
+    - we can even specify a default route for our application
+        @App.jsx
+            ...
+            <Routes>
+                <Route index path='/' element='<HomePage>' />
+                <Route path='/product' element='<Product>' />
+            </Routes>
+
 
 
 
