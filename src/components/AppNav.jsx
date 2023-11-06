@@ -6,8 +6,8 @@ const AppNav = () => {
   return (
     <nav className={styles.nav}>
         <ul>
-            <li><NavLink to='/'>Cities</NavLink></li>
-            <li><NavLink to='/'>Countries</NavLink></li>
+            <li><NavLink to='cities'>Cities</NavLink></li>
+            <li><NavLink to='countries'>Countries</NavLink></li>
         </ul>
     </nav>
   )

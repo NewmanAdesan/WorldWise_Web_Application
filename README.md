@@ -105,11 +105,12 @@ Index Route
 
     - now if the browser URL is set at `.../app`, which of the two components will be displayed?
     - we may need a way to set it so that one of the components will be displayed by default.
-    - this is where `INDEX ROUTE` comes in by using the `INDEX PROPERTY`
+    - this is where `INDEX ROUTE` comes in by using the `INDEX PROPERTY` which will replace the `PATH PROPERTY`
         @App.jsx
             ...
             <Route path='/' element={<HomePage />}>
-                <Route index path='cities' element={<Cities />} />
+                <Route index element={<Cities />} />
+                <Route path='cities' element={<Cities />} />
                 <Route path='countries' element={<Countries>}>
             </Route>
 
@@ -117,7 +118,8 @@ Index Route
         @App.jsx
             ...
             <Routes>
-                <Route index path='/' element='<HomePage>' />
+                <Route index element='<HomePage>' />
+                <Route path='/' element='<HomePage>' />
                 <Route path='/product' element='<Product>' />
             </Routes>
 
