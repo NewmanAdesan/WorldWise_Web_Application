@@ -1,9 +1,25 @@
 import React from 'react'
+import styles from './CityList.module.css'
+import CityItem from './CityItem'
+import Message from './Message'
+import Spinner from './Spinner'
 
-const CityList = () => {
+function CityList ({cities, isLoading}) {
+
+  // what to display while city is being fetched
+  if (isLoading) return <Spinner />
+
+  // what to display if there is no city in database
+  if (cities.length === 0) return <Message message="Add Your First City by Clicking on a City on the Map" />
+
+  // what to display if there is at lease a city in database
   return (
-    <div>List Of Cities</div>
+    <ul className={styles.cityList}>
+      {cities.map((city)=>{
+        return <CityItem city={city} key={city.id} />
+      })}
+    </ul>
   )
 }
 
-export default CityList
+export default CityList;

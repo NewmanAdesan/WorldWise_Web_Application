@@ -55,4 +55,37 @@
         - in the `AppLayout Component`, in the SideBar Component, just below the `AppNav Component` place the `Outlet Component`
         - specify the 'cities' route as the default route for the '/app' route using the index attribute
 
+
+ Step 4: Implementing the CityList Component
+    Concept
+        - the AppLayout page Component (/app) has 2 navigation links 'Cities' & 'Countries'
+        - the Cities Navigation link renders a 'CityList Component' below the navigation links.
+        - this CityList Component is associated with the route '/app/cities/
+        - the CityList Component shows a list of 'CityItem Component'.
+        - the CityList Component render a CityItem Component for each city info in the database.
+        - the CityItem Component show 4 things about a city
+            - the flag emoji of the city, 
+            - name of the city, 
+            - the data the city info was added into the database 
+            - a delete button to delete the city from the database
+
+    Implementation
+        - the App Component will fetch all the cities from the database as object in an array and store them in a 'cities state'.
+        - the App Component will also have a 'isLoading state' to keep track of the fetching process.
+        - the App Component passes the 'cities state' & 'isLoading state' as props to the 'CityList Component'
+        - the CityList Component renders a Spinner Icon if isLoading is true
+        - the CityList Component renders a Message Component to alert the user when no city is in the database
+        - the CityList Component renders a ul element & renders a CityItem Component for each city.
+        - the CityItem Component renders a li element which encapsulate 4 items
+            - a span element for the flag emoji
+            - a h3 element for the city name
+            - a time element for the city entry date
+            - a button eleemnt to delete city
+        - the 'formatDate Function' is defined & utilize to change the format of the date from '2027-10-31T15:59:59.138Z' to 'October 15 2023'
+
+
+
+ 
+
+
  
