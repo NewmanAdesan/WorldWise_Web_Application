@@ -33,7 +33,11 @@
     3a) it renders a div element with className 'styles.mapContainer' with a textContent saying 'Map'
 
 
- Step 3: Implementing App Navigation in the App Layout page
+
+
+
+
+Step 3: Implementing App Navigation in the App Layout page
     Concept
         - the AppLayout page component (.../app) encapsulate 2 component, the SideBar & Map Component
         - the SideBar encapsulate a AppNav Component which renders two NavLinks 'Cities' & 'Countries'
@@ -54,6 +58,18 @@
         - in the AppNav Component, specify the `to attribute` of the two NavLinks set to 'cities' & 'countries' 
         - in the `AppLayout Component`, in the SideBar Component, just below the `AppNav Component` place the `Outlet Component`
         - specify the 'cities' route as the default route for the '/app' route using the index attribute
+
+    Summary
+        - Remember the '/app' route corresponds to the AppLayout page component, rendering AppNav and SideBar components
+        - Create CityList and CountryList Components
+        - Set up nested routes in the '/app' route for CityList and CountryList
+        - Create a default route in the '/app' route for CityList
+        - Configure NavLinks for CityList and CountryList in the AppNav Component
+        - Place Outlet for nested routes in the SideBar Component"
+
+
+
+
 
 
  Step 4: Implementing the CityList Component
@@ -82,6 +98,40 @@
             - a time element for the city entry date
             - a button eleemnt to delete city
         - the 'formatDate Function' is defined & utilize to change the format of the date from '2027-10-31T15:59:59.138Z' to 'October 15 2023'
+
+    Summary
+        - Fetch and Display cities from the database into the CityList Component
+        - Display Loading Icon to Give Feedback of Fetching Process
+        - Display Message to Give Feedback of No City in the database"
+
+
+
+
+
+
+ Step 5: Implementing the CountryList Component
+    Concept
+        - the CountryList Component shows a list of 'CountryItem Component'.
+        - the CountryList Component render a CountryItem Component for each country in the database.
+        - the CountryItem Component show 2 things about a country
+            - the flag emoji of the country, 
+            - name of the country,
+
+    Implementation
+        - the App Component passes the 'cities state' & 'isLoading state' as props to the 'CountryList Component'
+        - the CountryList Component renders a Spinner Icon if isLoading is true
+        - the CountryList Component renders a Message Component to alert the user when no city is in the database
+        - we wll obtain all the countries from the cities state using the reduce function
+        - the CountryList Component renders a ul element & renders a CountryItem Component for each country.
+        - the CountryItem Component renders a li element which encapsulate 2 items
+            - a span element for the flag emoji
+            - a h3 element for the country name
+
+    Summary
+        - Fetch & Process cities data to obtain all distinct countries.
+        - Display each Country in the CountryList Component
+        - Display Loading Icon to Give Feedback of Fetching Process
+        - Display Message to Give Feedback of No City in the database"
 
 
 

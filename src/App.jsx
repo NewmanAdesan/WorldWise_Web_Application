@@ -43,7 +43,7 @@ const App = () => {
           <Route path='app' element={<AppLayout />}>
             <Route index element={<CityList cities={cities} isLoading={isLoading} />} />
             <Route path='cities' element={<CityList cities={cities} isLoading={isLoading}/>} />
-            <Route path='countries' element={<CountryList />} />
+            <Route path='countries' element={<CountryList cities={cities} isLoading={isLoading}/>} />
           </Route>
           <Route path='*' element={<PageNotFound />}/>
       </Routes>
