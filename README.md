@@ -125,6 +125,61 @@ Index Route
 
 
 
+URL STATE
+    - we can store data in the URL such that the corresponding component will render based on the value in the URL
+    - we can do this in two ways by 'URL PARAMETERS' & 'URL SEARCH QUERRIES'
+
+    - URL PARAMETERS 
+        - think of a Route whose url is '.../app/cities/:city' which renders the 'City Component'
+        - the keyword 'city' in the url is a parameter that can be anything '.../app/cities/Lisbon', '.../app/cities/London'
+        - the concept of url parameters leads to dynamic routing
+        - the 'City Component' can then obtain the value that corresponds to the city parameter & render based on that value
+
+        [STEP1 - CREATE THE ROUTE ]
+            <Route path='cities/:id' element={<City>}>
+
+        [STEP2 - USE THE URL PARAMETER]
+            import {useParams} from 'react-router-dom'
+            
+            function City() {
+                const {id} = useParams();
+                return <>{id}</>
+            }
+
+        [STEP3 - CREATE THE ROUTE LINK]
+            // this component must already be located in the cities route
+            <NavLink to='54456'>...</NavLink>
+
+
+
+    - URL SEARCH QUERRIES
+        - think of a Route that needs an object of information i.e keys & values i.e {data1=value1, data2=value2}
+        - whats more interesting is that we can read and write this object of information
+        - '.../app/product?data1=value1&data2=value2'
+
+            [STEP1 - CREATE THE ROUTE ]
+                <Route path='cities/:id' element={<City>}>
+
+            [STEP2 - CREATE THE ROUTE LINK]
+                <NavLink to='54456?lat=43.5&lng=34.56'>...</NavLink>
+
+            [STEP3 - USE THE URL PARAMETER]
+                import {useSearchParams} from 'react-router-dom'
+                
+                function City() {
+                    const [searchParams, setSearchParams] = useSearchParams();
+                    const lat = searchParams.get("lat");
+                    const lng = searchParams.get("lng");
+                    return <button onClick={()=>{setSearchParams({lat: 34.5, lng: 23.4})}}>{lat}</button>
+                }
+
+    - WHY URL STATE
+        - Global State: easily store state in a global place that is accessible to all components in the App, unlike the PROP DRILLING TECHNIQUE
+        - Page Communication: a good way to pass data from one page into the next page
+        - Page Bookmark: makes it possible to bookmark & share the page with the exact UI state it had at the time.
+
+
+
 
 
 STYLING OPTIONS IN REACT APPLICATIONS
@@ -136,6 +191,7 @@ STYLING OPTIONS IN REACT APPLICATIONS
 | CSS-in-JS| External file or Component file | Creates new Component | Component | Javascript
 | Utility first CSS (tailwind) | JSX element | className prop | JSX element | CSS
 | UI Component (materialUI) | Component File | Imported Component | Component | JSX
+
 
 
 USING CSS MODULES
