@@ -138,17 +138,17 @@ URL STATE
         [STEP1 - CREATE THE ROUTE ]
             <Route path='cities/:id' element={<City>}>
 
-        [STEP2 - USE THE URL PARAMETER]
+        [STEP2 - CREATE THE ROUTE LINK]
+            // this component must already be located in the cities route
+            <NavLink to='54456'>...</NavLink>
+
+        [STEP3 - USE THE URL PARAMETER]
             import {useParams} from 'react-router-dom'
             
             function City() {
                 const {id} = useParams();
                 return <>{id}</>
             }
-
-        [STEP3 - CREATE THE ROUTE LINK]
-            // this component must already be located in the cities route
-            <NavLink to='54456'>...</NavLink>
 
 
 
@@ -160,10 +160,10 @@ URL STATE
             [STEP1 - CREATE THE ROUTE ]
                 <Route path='cities/:id' element={<City>}>
 
-            [STEP2 - CREATE THE ROUTE LINK]
+            [STEP2 - CREATE THE ROUTE LINK ADDING A QUERY]
                 <NavLink to='54456?lat=43.5&lng=34.56'>...</NavLink>
 
-            [STEP3 - USE THE URL PARAMETER]
+            [STEP3 - USE AND PROCESS THE QUERY IN ANY COMPONENT (YOU CAN CHANGE THE QUERY PROGRAMMATICALLY)]
                 import {useSearchParams} from 'react-router-dom'
                 
                 function City() {
@@ -177,6 +177,62 @@ URL STATE
         - Global State: easily store state in a global place that is accessible to all components in the App, unlike the PROP DRILLING TECHNIQUE
         - Page Communication: a good way to pass data from one page into the next page
         - Page Bookmark: makes it possible to bookmark & share the page with the exact UI state it had at the time.
+
+
+
+Programmatic Navigation
+
+    THE IDEA
+        - with the advent of Route, when the browser url is changed by the user, another page displays, a new UI VIEW
+        - with the advent of Route, when a link is clicked, another page displays, a new UI VIEW
+        - so far routing is based on user interaction. 
+        - routing without user interaction is called PROGRAMMATIC NAVIGATION
+
+        - with react router dom, 2 way to achieve programmatic navgation
+        - programmatic navigation with the "useNavigate hook"
+        - programmatic navigation with the "Navigate Component"
+
+
+    THE USECASE
+        - to navigate to a specific url
+        - to navigate back & forth in the url visitation history like the browser "->" & "<-" buttons
+
+
+    PROGRAMMATIC NAVIGATION WITH useNavigate HOOK
+        [Step1 - Create the Route]
+            <Route path="form" element={<Form />} />
+
+        [Step2 - Obtain the Navigating Function from the useNavigate Hook]
+            const navigate = useNavigate();
+
+        [Step3 - Navigate to the Route]
+            <div onClick={()=>navigate("form")}></div>
+
+
+    PROGRAMMATIC NAVIGATION WITH Navigate Component
+        - this is basically the functionality of the useNavigate hook encapsulated in a component.
+        - it is useful in situations where you can't use the navigating function coming from the useNavigate hook
+        - although it is not in so much use anymore, one usecase is in the concept of Nested Route, it is used to specify the default route
+
+        function App(){
+            ...
+            return (
+                ...
+                <Route path="app" element={<AppLayout>}>
+                    <Route index element={<Navigate replace to="cities" />} />
+                    <Route path="cities" element={<CityList />} />
+                    <Route path="countries" element={<CountryList />} />
+
+                    // old version -- <Route index element={<CityList />} />
+                    // new version -- <Route index element={<Navigate replace to="cities" />} />
+                </Route>
+            )
+        }
+
+        - do you notice the subtle Optimization btw the old & new version? the App Component does not create the CityList component twice.
+
+
+
 
 
 
