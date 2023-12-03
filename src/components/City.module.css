@@ -3,13 +3,20 @@
   max-height: 70%;
   background-color: var(--color-dark--2);
   border-radius: 7px;
-  overflow: scroll;
+  overflow: overlay;
 
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
+
+.city::-webkit-scrollbar {width: 5px;}
+.city::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+.city:hover::-webkit-scrollbar-thumb { background-color: #242a2e;}
 
 .row {
   display: flex;

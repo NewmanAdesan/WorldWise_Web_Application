@@ -18,6 +18,10 @@ Routing (basics)
         - single page application makes a web app feel like a native desktop app or mobile app.
 
 
+
+
+
+
 Routing with react router
     [STEP1 - CREATING ROUTES] 
         - in the root of our application we specify the matching btw URL & UI VIEWS(component)
@@ -55,6 +59,9 @@ Routing with react router
                 ```
         - the advantage of using the NAVLINK COMPONENT is that react-router adds the 'active class' to the link element that correspondes to the active UI VIEW.
         - this is useful when you want to attach a special styling to the class that is active.
+
+
+
 
 
 
@@ -97,6 +104,10 @@ Nested Route
     - then the HomePage Component was told when to display which based on the browser URL
 
 
+
+
+
+
 Index Route 
     - think of a route (`.../app` --> `<HomePage />`)
     - think of this route having 2 nested routes 
@@ -122,6 +133,9 @@ Index Route
                 <Route path='/' element='<HomePage>' />
                 <Route path='/product' element='<Product>' />
             </Routes>
+
+
+
 
 
 
@@ -180,6 +194,9 @@ URL STATE
 
 
 
+
+
+
 Programmatic Navigation
 
     THE IDEA
@@ -194,19 +211,27 @@ Programmatic Navigation
 
 
     THE USECASE
-        - to navigate to a specific url
-        - to navigate back & forth in the url visitation history like the browser "->" & "<-" buttons
+        - to navigate to a specific url (url navigation)
+        - to navigate back & forth in the url visitation history like the browser "->" & "<-" buttons (url visitation history navigation)
 
 
     PROGRAMMATIC NAVIGATION WITH useNavigate HOOK
-        [Step1 - Create the Route]
-            <Route path="form" element={<Form />} />
 
-        [Step2 - Obtain the Navigating Function from the useNavigate Hook]
-            const navigate = useNavigate();
+        URL Navigation
+            [Step1 - Create the Route]
+                <Route path="form" element={<Form />} />
 
-        [Step3 - Navigate to the Route]
-            <div onClick={()=>navigate("form")}></div>
+            [Step2 - Obtain the Navigating Function from the useNavigate Hook]
+                const navigate = useNavigate();
+
+            [Step3 - Navigate to the Route]
+                <div onClick={()=>navigate("form")}></div>
+
+        URL Visitation History Navigation
+
+            [Step3 - Navigate Back]
+                
+
 
 
     PROGRAMMATIC NAVIGATION WITH Navigate Component
@@ -236,8 +261,6 @@ Programmatic Navigation
 
 
 
-
-
 STYLING OPTIONS IN REACT APPLICATIONS
 
 |Styling Options | Where? | How? |  Scope | Based On
@@ -247,6 +270,9 @@ STYLING OPTIONS IN REACT APPLICATIONS
 | CSS-in-JS| External file or Component file | Creates new Component | Component | Javascript
 | Utility first CSS (tailwind) | JSX element | className prop | JSX element | CSS
 | UI Component (materialUI) | Component File | Imported Component | Component | JSX
+
+
+
 
 
 
@@ -287,4 +313,168 @@ USING CSS MODULES
                     ...
                 }
 
+
+
+
+
+THE CONTEXT API SYSTEM
+
+    IDEA
+        - the context api is a system to pass data through the app WITHOUT MANUALLY PASSING PROPS DOWN THE TREE
+        - a system that allows us BROADCAST STATE to the decendants of a component
+
+        - Three Major Factors of Context API
+            - The Value: data that we want available usually a state & state update function 
+            - The Provider: a react component that gives its children component & their descendant access to a value
+            - The Consumer: all component that reade the provided context value
+        
+        - when the value in the Provider get updated/changed; only the consumers of that value gets re-rendered
+
+
+    BASIC IMPLEMENTATION
+        [Step1 - Create the Context]
+            const valueContext = createContext();
+
+        [Step2 - Create the Value]
+            function Parent(){
+                const [value, setValue] = useState(5);
+            }
+
+        [Step3 - Create the Provider]
+            function Parent(){
+                ...
+                return (
+                    <valueContext.Provider value={{value, setValue}}>            
+                    </valueContext.Provider>
+                )
+            }
+
+        [Step4 - Specify the Consumers]
+            <valueContext.Provider>
+                <Child1 />
+                <Child2 />
+            </valueContext.Provider>
+
+        [Step5 - Consume the Context Value]
+            function Child1() {
+                const {value, setValue} = useContext(valueContext);
+                return <button onClick={()=>setValue(2)}>{value}</button>
+            }
+
+
+    PRACTICAL IMPLEMENTATION
+        - in practice, 
+        - we encapsulate the context provision in a CUSTOM COMPONENT
+        - we wncapsulate the context consumption in a CUSTOM HOOK
+
+        [Step1 - Encapsulate Context Provision and Consumption]
+            @valueContextProvider.jsx
+                const valueContext = createContext();
+
+                function valueContextProvider({children}){
+                    const [value, setValue] = useState(5);
+                    return (
+                        <valueContext.Provider value={{value, setValue}}>  
+                            {children}
+                        </valueContext.Provider>
+                    )
+                }
+
+                function useValueContext() {
+                    const contextData = useContext(valueContext);
+                    if (contextData === undefined) Throw Error("The Component Trying to consume the 'valueContext' is not a descendant of the 'valueContextProvider Component'");
+                    return contextData;
+                }
+
+                export {valueContextProvider, useValueContext}
+
+        [Step2 - Specify the Consumers]
+            @Parent.jsx
+                function Parent(){
+                    return(
+                        <valueContextProvider>
+                            <Child1 />
+                            <Child2 />
+                        </valueContextProvider>
+                    )
+                }
+
+        [Step3 - Consume the Context Value]
+            @Child1.jsx
+                function Child(){
+                    const {value, setValue} = useContext(valueContext);
+                    return <button onClick={()=>setValue(2)}>{value}</button>
+                }
+
+
+    CONTEXT-VALUES & USE-EFFECT
+        - When working with React and managing state across components, 
+          it's important to understand the intricacies of using context values 
+          and their impact on useEffect dependencies.
+
+        - Have a look at this example
+            ...
+            const {valueA, valueB} = useCitiesContext();
+
+            useEffect(()=>{
+                if (valueA===5) console.log("five");
+                else console.log("not five");
+            }, [valueA])
+        
+          in the case valueB changes, the useEffect should not run but it will
+          this is because the function useCitiesContext returns a new object & actually valueA & valueB changes.
+
+
+
+    END-NOTE
+        - we can create as many context as we want in our application 
+          and place them wherever we want in the component tree.
+          this allows for new and interesting ways of managing state.
+
+        - the big advantage of using Context API apart from having clean code is having INDEPENDENT COMPONENT, MORE REUSABLE COMPONENT.
+          were our components do not need props to be passed to them anymore.
+
+
+
+
+
+THINKING IN REACT: ADVANCED STATE MANAGEMENT
+
+    INTRO
+        - state management is about giving each piece of state the right home
+
+    TYPES OF STATE
+        BY ACCESSIBILITY (LOCAL & GLOBAL STATE)
+            - LOCAL STATE
+            - needed by one or few components.
+            - only accessible in component and child component.
+
+            - GLOBAL STATE
+            - might be needed by many components.
+            - accessibie to every component in the application.
+
+        BY DOMAIN (REMOTE & UI STATE)
+            - REMOTE STATE
+            - state whose information is loaded from a remote server.
+            - works asynchronously.
+            - may need re-fetching plus updating 
+              therefore in a large scale application, remote state should be cached, revalidated & so on
+
+            - UI STATE
+            - state whose information IS NOT loaded from a remote server. but stored in the application files
+            - works synchronously
+
+    STATE PLACEMENT OPTIONS
+        Where|Tools|When to use
+        Local Component | useState, useReducer, useRef | Local State
+        Parent Component | useState, useReducer, useRef | Lifting State Up
+        Context | context api + useState, useReducer | Global State (preferable ui state), excessive prop drilling
+        3rd-Party Library | redux, react querry, swr, zustand | Global State (remote OR ui state)
+        Url | react router | Global State (passing data between pages)
+        Browser Storage | Local Storage, Session Storage | Storing Data in User's Browser
+
+    STATE MANAGEMENT TOOLS
+                 | LOCAL STATE | GLOBAL STATE
+        UI STATE | useState, useReducer, useRef | context api + useState/useReducer, redux/zustand/recoil, react router
+        REMOTE STATE| fetch + useEffect + useState/useReducer | context api + useState/useReducer, redux/zustand/recoil, react querry/swr/rtk query
 

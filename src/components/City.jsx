@@ -1,4 +1,10 @@
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCitiesContext } from "../contexts/CitiesContext";
 import styles from "./City.module.css";
+import Message from "./Message";
+import Spinner from "./Spinner";
+import Button from "./Button";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -9,14 +15,29 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
-  // TEMP DATA
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-  };
 
+  // OBTAIN 'ID` PARAMETER
+  const {id} = useParams();
+
+  // OBTAIN THE NAVIGATE FUNCTION
+  const navigate = useNavigate();
+
+  // CONSUME CITIESCONTEXT API
+  const {currentCity, isLoading, error, getCity} = useCitiesContext();
+
+  // OBTAIN CITY INFORMATION
+  useEffect(()=>{
+    console.log("useEffect running")
+    getCity(id);
+  }, [id])
+
+  // LOADING CITY DATA
+  if (isLoading) return <Spinner />
+  
+  // INVALID CITY
+  if (Object.entries(currentCity).length===0 && error!=="") return <Message message={error} />
+
+  // DESTRUCTURE CITY INFORMATION
   const { cityName, emoji, date, notes } = currentCity;
 
   return (
@@ -51,9 +72,14 @@ function City() {
         </a>
       </div>
 
-      {/* <div>
-        <ButtonBack />
-      </div> */}
+      <div>
+        <Button type='back' handleClick={(e)=>{
+            e.preventDefault();
+            navigate(-1);
+        }} >
+            Back
+        </Button>
+      </div>
     </div>
   );
 }

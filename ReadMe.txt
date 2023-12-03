@@ -135,6 +135,103 @@ Step 3: Implementing App Navigation in the App Layout page
 
 
 
+
+
+
+ Step 5: Refactoring the state placement of cities-related-state: Utilizing the Context Api
+    Concept
+        - all state related to the cities remote state will be removed from the app component and placed in a context called CitiesContext.
+        - the App Component children will be set as consumers of this context. 
+        - with this in place, descendants of the App Component can use state related to the cities state without prop-drilling.
+
+    Implementation
+        - create the 'context folder' in 'src folder'
+        - create the 'CitiesContext jsx file' in the 'context folder'.
+        - utilizing the context api concept setup a 'CitiesContext component' for context provision, providing the cities & isLoading state.
+        - utilizing the context api concept setup a 'useCitiesContext hook' for context consumption.
+        - the 'CitiesContext jsx file' exports the 'CitiesContext component' & 'useCitiesContext hook'
+        - the App Component imports the 'CitiesContext component', making it encapsulate the BrowserRouter component
+        - the 'CityList component' & 'CountryList component' no longer needs prop drilling
+        - the 'CityList component' & 'CountryList component' will consume the city context using the 'useCitiesContext hook'
+
+
+
+
+
+
+
+ Step 6: The City information component
+
+     Feature StoryLine
+        - we have the 'cities route' (/app/cities) which corresponds to the 'CityList component'
+        - we have the 'countries route' (/app/countries) which corresponds to the 'CountryList componenet'
+        - we have the dynamic 'city route' (/app/cities/id) which corresponds to the 'City componenet'. it has a dynamic parameter called 'id'
+        - in the CityList component we have 'CityItem component' for each city.
+        - clicking on the CityItem component navigates to the city route, passing the id of the city that was clicked to the 'id parameter' of the city route
+        - in the City component, the value of the id parameter is obtained then via an http request, the city information corresponding to that id is fetched.
+        - the city information fetched is used to render the city component.
+        - navigating back to the cities route, the CityItem component corresponding to the last view city information will be highlighted
+
+    Concept
+        - basically our implementation will be in 4 steps
+            - Dynamic Navigation: the CityItem navigates to the dynamic city route passing the city id.
+            - Data Fetching: the City component fetches the city information.
+            - Back Navigation: the City Compoent render a back button that goes back to the previous route.
+            - City Hightlight: the CityList Component has to have access to the last viewed city so that the city item that corresponds to this city becomes highlighted.
+
+        - Dynamic Navigation:
+            - the CityItem component is a react router Link
+            - the to property specify the id of the city in the route
+        - Data Fetching:
+            - the functionality to fetch city data is specified by the 'getCity function'
+            - the 'getCity function' will be placed in the CitiesContext
+            - the city information gotten will be placed in a new state the 'currentCity state'
+            - the 'currentCity state' will also be placed in the
+        - Back Navigation
+            - the city component has a button with an onclick functionality that navigates back to the route that led to it.
+        - City Hightlighting
+            - the CityItem component has a class to highlight it that conditionally displays
+            - the highlight class displays when the city id of the CityItem component equals the city id of the currentCity state.
+
+    Implementation
+        - THE CITIESCONTEXT COMPONENT
+        - in the CitiesContext component, create the getCity function. it has an'id paramter'
+        - the getCity function is an asynchronous function and is encapsulate in a try/catch block
+        - in the try block
+            - set the isLoading state to true.
+            - fetch the city information based on the id using the API url
+            - place the city information in the currentCity state
+            - edge case: no such city in the database, create an error state & set the state to the string "City Does not Exist in the database"
+        - in the catch block, set the error state to the string "Error Occurred Whilst Fetcing City Data"
+        - in the finally block, set the isLoading state to false
+        - in the CitiesContext, add 'the getCity function', 'the currentCity state' & 'the error state' to the context value object.
+
+        - THE CITY COMPONENT
+        - in the City Component use the useParams hook to get the value of the id url parameter.
+        - in the City component, consume the citiesContext to get 4 items 'currentCity state', 'isLoading state', 'error state' & 'getCity function'
+        - in the City Component, via the useEffect hook, call the getCity function with the value of the id.
+        - in the City component, if isLoading state is true, render the Spinner component.
+        - in the City component, if currentCity state is empty and error state not empty, render the Message component whose message prop references the error string.
+        - create a Button Component. it has 2 custom props 'type' & 'handleClick'. it renders a button element. button element has 2 classNames; 'btn' and the value of the type props. the button onClick attribute is the value of handleClick prop.
+        - in the City Component, render the back button using Button Component. the text is 'Back'. the type prop is 'back'. the handleClick prop needs the functionality of programmatic navigation
+        - in the City component, use the useNavigate hook to get the navigate function.
+        - in the City component, in the Back Button Component, in the handleClick, utilise the navigation function to navigate to the url before the current url.
+
+        - THE CITYITEM COMPONENT
+        - in the CityItem Component, consume the citiesContext to get the 'currentCity state'
+        - in the CityItem Component conditionally display the 'cityItem-active class' in the NavLink on the condition that the 'id property of the city prop' of the CityItem Component equals to the id key of the currentCity state.
+                    
+
+
+
+
+
+
+
+
+
+
+
  
 
 
