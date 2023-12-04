@@ -220,7 +220,28 @@ Step 3: Implementing App Navigation in the App Layout page
         - THE CITYITEM COMPONENT
         - in the CityItem Component, consume the citiesContext to get the 'currentCity state'
         - in the CityItem Component conditionally display the 'cityItem-active class' in the NavLink on the condition that the 'id property of the city prop' of the CityItem Component equals to the id key of the currentCity state.
-                    
+
+
+
+
+
+
+
+ Step 6: Setting up the Map UI using the Leaflet & React-Leaflet Library
+
+ CONCEPT
+    - leaflet is an open-source JavaScript library for mobile-friendly interactive maps
+    - react-leaflet is an open-source react library that binds leaflet functionalities into a react component
+ 
+ IMPLEMENTATION
+    - first include leaflet custom css with the @import directive
+    - next as per the react-leaflet documentation, use the components Mapcontainer, TileLayer, Marker, PopUp to set up the interactive map in your map component
+    - create a state 'mapPosition' which is initiall [40, 0]
+    - set the center of the map to the 'mapPosition state' value
+    - place a marker at the mapPosition state
+    - instead of using the default openstreetmap by the url 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' & attribution '', we will use openstreetmap with Tiles courtesy of Humanitarian OpenStreetMap Team (HOT) just because hot version uses a color code with is similar to the color code of our application. hot url is 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' and the attribution is '&copy; OpenStreetMap contributors | Tiles courtesy of Humanitarian OpenStreetMap Team'
+    -  change the zoom level to 9
+ 
 
 
 
