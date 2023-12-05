@@ -227,7 +227,7 @@ Step 3: Implementing App Navigation in the App Layout page
 
 
 
- Step 6: Setting up the Map UI using the Leaflet & React-Leaflet Library
+ Step 7: Setting up the Map UI using the Leaflet & React-Leaflet Library
 
  CONCEPT
     - leaflet is an open-source JavaScript library for mobile-friendly interactive maps
@@ -241,7 +241,24 @@ Step 3: Implementing App Navigation in the App Layout page
     - place a marker at the mapPosition state
     - instead of using the default openstreetmap by the url 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' & attribution '', we will use openstreetmap with Tiles courtesy of Humanitarian OpenStreetMap Team (HOT) just because hot version uses a color code with is similar to the color code of our application. hot url is 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' and the attribution is '&copy; OpenStreetMap contributors | Tiles courtesy of Humanitarian OpenStreetMap Team'
     -  change the zoom level to 9
- 
+
+
+
+
+
+
+
+ Step 8: Display Location Marker for Each City on the Map
+    Concept
+        - using the Marker component provided by react-leaflet, 
+        - we can place a mark on a specific location & specify a pop-up when the mark is hovered/click
+        - all we need is the Marker component, PopUp component, the latitude & longitude of the city
+
+    Implementation
+        - in Map.jsx
+        - obtain the cities data from the CitiesContext via the useCitiesContext hook
+        - for each city render a Marker in the Map Container. 
+        - in the Marker Component is the PopUp Component which rendereds 2 span element the city emoji & the city name
 
 
 
