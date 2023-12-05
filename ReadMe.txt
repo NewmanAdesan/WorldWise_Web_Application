@@ -263,6 +263,59 @@ Step 3: Implementing App Navigation in the App Layout page
 
 
 
+ Step 9: Interacting with the Map UI
+    Concept
+        - for now, there would be 2 main interactions with Map.
+        - Map_Fly_To interaction
+        - Map_Click interaction
+        
+        - Map_Fly_To interaction 
+            - when a cityItem in the cityList is clicked to view the City Information of that city, 
+            - the Map UI centers at that city's location.
+            - thus we need information to pass between the cityItem UI & the Map UI
+            - the Map UI is a sibling to the ancestor of the cityItem UI
+            thus in terms of state management we have two options 'context-state' or 'url-state'
+            - we will use url-state such that when the cityItem is clicked, it places the lat & lng of the city in the URL.
+            - this way the Map Component can obtain the value of the lat & lng from the url & synchronise it with its mapPosition state which then instruct the Map Container to be centered at that location
+            - as per the react-leaflet & leaflet documentation to change the center we have to encapsulate this functionality in a Component then add this component as a child of the MapContainer component.
+
+        - Map_Click interaction
+            - when any part of the Map is clicked,
+            - on the sidebar UI, a form appears in the place of the CityList/CountryList UI. 
+            - this means we have an additional nested route in the app route which is the 'Form Route' (/app/form)
+            - we would querry the map for the lat & lng of the location that was just clicked
+            - then we would route the application to the 'Form Route' adding the data of the lat & lng to the url so that the form component can process it.
+            - we cannot use the native click event handler because we need the map to tell us where exactly was clicked (lat/lng) thus we fall back to the documentation.
+
+
+    Implementation
+        - The Map_Fly_To Interation
+        - the cityItem Component is a navlink which intitially refers to '/app/cities/{id}'. change this to '/app/cities/{id}?lat={lat}&lng={lng}'
+        - where id, lat & lng corresponds to the city detail of the cityItem
+        - in the Map Component obtain the lat & lng data from the URL into the variables 'mapLat' & 'mapLng'
+        - setup a useEffect hook dependent on mapLat & mapLng. in the hook, if mapLat & mapLng have values that is a number, set the mapPosition state to their values (Numeric)
+        - create a functional component called ChangeCenter 
+        - in ChangeCenter we have just a 'position paremeter' which signifies [lat, lng].
+        - in ChangeCenter we use 'useMap hook' by react-leaflet to obtain an object that signifies the map container 
+        - in ChangeCenter we call the 'setView method' on that object passing the position to it. 
+        - in the ChangeCenter we return null.
+        - in the MapContainer Component, under the Marker Component we place the ChangeCenter Component so our functionality can run.
+
+        - The Map_Click interaction
+        - in the Map Component,
+        - create a functional component called DetectClick. this is where how functionality of specifying a click event handler for the map will lie.
+        - utilize the useMapEvent hook by react-leaflet to specify a click event handler.
+        - an options object is passed to the useMapEvent hook.
+        - in the options object is a function called click(e).
+        - in the click function we would specify our click event functionality
+        - in the click function we obtain the lat & lng of the clicked position & we programmatically navigate to the Form route placing the lat & lng information in the URL
+        - in the DetectClick we return null.
+        - in the MapContainer Component, under the Marker Component we place the DetectClick Component so our functionality can run.
+        
+
+
+
+
 
 
 

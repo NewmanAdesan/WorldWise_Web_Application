@@ -168,7 +168,7 @@ URL STATE
 
     - URL SEARCH QUERRIES
         - think of a Route that needs an object of information i.e keys & values i.e {data1=value1, data2=value2}
-        - whats more interesting is that we can read and write this object of information
+        - whats more interesting is that we can read and write this object of information from/into a route URL
         - '.../app/product?data1=value1&data2=value2'
 
             [STEP1 - CREATE THE ROUTE ]

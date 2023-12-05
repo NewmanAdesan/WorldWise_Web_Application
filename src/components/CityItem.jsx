@@ -11,7 +11,7 @@ const CityItem = ({city}) => {
 
   return (
     <li>
-      <NavLink className={`${styles.cityItem} ${city.id===currentCity.id ? styles['cityItem--active']: ""}`} to={`${city.id}`}>
+      <NavLink className={`${styles.cityItem} ${city.id===currentCity.id ? styles['cityItem--active']: ""}`} to={`${city.id}?lat=${city.position.lat}&lng=${city.position.lng}`}>
         <span className={styles.emoji}>{city.emoji}</span>
         <h3 className={styles.name}>{city.cityName}</h3>
         <time className={styles.date}>{formatDate(city.date)}</time>
