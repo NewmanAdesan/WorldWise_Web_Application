@@ -7,7 +7,12 @@ const formatDate = (date) => new Intl.DateTimeFormat("en", {day:"numeric", month
 
 const CityItem = ({city}) => {
   // CONSUME THE CITIESCONTEXT
-  const {currentCity} = useCitiesContext();
+  const {currentCity, deleteCity} = useCitiesContext();
+
+  function handleClick(e) {
+      e.preventDefault();
+      deleteCity(city.id)
+  }
 
   return (
     <li>
@@ -15,7 +20,7 @@ const CityItem = ({city}) => {
         <span className={styles.emoji}>{city.emoji}</span>
         <h3 className={styles.name}>{city.cityName}</h3>
         <time className={styles.date}>{formatDate(city.date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button className={styles.deleteBtn} onClick={(e) => handleClick(e)}>&times;</button>
       </NavLink>
     </li>
   )

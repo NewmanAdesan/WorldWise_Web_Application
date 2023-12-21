@@ -64,14 +64,33 @@ const CitiesContext = ({children}) => {
             setCities(cities => [...cities, data])
         } catch (error) {
             console.log(error);
-            setError("Error Occurred Whilst Sending City Data");
+            setError("There was an error creating the data");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const deleteCity = async (cityID) => {
+        try {
+            setIsLoading(true);
+
+            // send a delete request to delete city information from the database (thus updating the remote state)
+            await fetch(`${BASE_URL}/cities/${cityID}`, {
+                method: "DELETE",
+            });
+
+            // update the UI state
+            setCities(cities => cities.filter(city => city.id !== cityID))
+        } catch (error) {
+            console.log(error);
+            setError("There was an Error Deleting the City");
         } finally {
             setIsLoading(false);
         }
     }
 
     return (
-    <citiesContext.Provider value={{cities, isLoading, setIsLoading, currentCity, error, getCity, createCity}}>
+    <citiesContext.Provider value={{cities, isLoading, setIsLoading, currentCity, error, getCity, createCity, deleteCity}}>
         {children}
     </citiesContext.Provider>
     )

@@ -61,18 +61,6 @@
       "id": 98443203
     },
     {
-      "cityName": "Shelestovo",
-      "country": "Russian Federation (the)",
-      "emoji": "🇷🇺",
-      "date": "2023-12-21T13:22:05.290Z",
-      "notes": "Interesting",
-      "position": {
-        "lat": "47.989921667414194",
-        "lng": "44.03320312500001"
-      },
-      "id": 98443204
-    },
-    {
       "cityName": "Nikolayevskaya",
       "country": "Russian Federation (the)",
       "emoji": "🇷🇺",
@@ -83,18 +71,6 @@
         "lng": "41.41845703125001"
       },
       "id": 98443205
-    },
-    {
-      "cityName": "Dargun",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2023-12-21T13:31:52.025Z",
-      "notes": "",
-      "position": {
-        "lat": "53.85252660044951",
-        "lng": "12.832031250000002"
-      },
-      "id": 98443206
     }
   ]
 }

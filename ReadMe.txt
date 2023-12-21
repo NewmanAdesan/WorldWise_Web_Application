@@ -394,6 +394,28 @@ Step 3: Implementing App Navigation in the App Layout page
 
 
 
+
+    Step 12: Deleting a City Information
+
+        Concept
+            - create a function that would delete a city from the database(remote state) and from the UI state
+
+        StoryLine
+            - in the cities route, a list of cities is shown.
+            - on each city item lies a cancel button.
+            - onClick of the cancel button a loading icon appears in place for a while
+            - and then the list of cities is shown again with a difference, the city item has been deleted. 
+            - even when i reload the page it is still deleted
+
+        Implementation
+            - the cancel button calls a function which first of all prevent default so that the cityItem div (its parent) does receive a click event
+            - then it calls another function 'deleteCity' passing the id of the cityItem that was clicked to this function
+            - the deleteCity funtion lie in the cities context. 
+            - basically this sends an asynchronous DELETE REQUEST to the server whilst controlling the loading state of the application
+
+
+
+
       
 
 
