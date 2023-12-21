@@ -5,6 +5,8 @@ import styles from './Map.module.css'
 import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvent } from 'react-leaflet'
 import { useCitiesContext } from '../contexts/CitiesContext'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import useGeolocation from '../hooks/useGeolocation'
+import Button from '../components/Button'
 
 const Map = () => {
   const [mapPosition, setMapPosition]= useState([40, 40]);
@@ -12,6 +14,8 @@ const Map = () => {
   const [searchParams] = useSearchParams();
   const mapLat = searchParams.get('lat');
   const mapLng = searchParams.get('lng');
+  const {isLoading: isGeolocationLoading, position: geolocationPosition, fetchLocation} = useGeolocation();
+  const navigate = useNavigate();
 
   useEffect(
     ()=>{
@@ -19,6 +23,15 @@ const Map = () => {
         setMapPosition([Number(mapLat), Number(mapLng)]);
       }
     }, [mapLat, mapLng]
+  )
+
+  useEffect (
+    ()=>{
+      if (geolocationPosition) {
+        setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
+        navigate(`form?lat=${geolocationPosition.lat}&lng=${geolocationPosition.lng}`);
+      }
+    }, [geolocationPosition, navigate]
   )
 
   return (
@@ -44,6 +57,9 @@ const Map = () => {
           <ChangeCenter position={mapPosition} />
           <DetectClick />
         </MapContainer>
+        {!geolocationPosition && <Button type='position' handleClick={()=>fetchLocation()}>
+            {isGeolocationLoading ? 'Loading...' : 'Use your Geolocation'}
+        </Button>}
     </div>
   )
 }
@@ -64,4 +80,4 @@ function DetectClick() {
   return null;
 }
 
-export default Map
+export default Map;

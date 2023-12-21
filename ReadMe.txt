@@ -311,6 +311,48 @@ Step 3: Implementing App Navigation in the App Layout page
         - in the click function we obtain the lat & lng of the clicked position & we programmatically navigate to the Form route placing the lat & lng information in the URL
         - in the DetectClick we return null.
         - in the MapContainer Component, under the Marker Component we place the DetectClick Component so our functionality can run.
+
+
+
+
+ Step 10: The Geolocation Feature
+
+    The Story
+        - there is a button in the map location, positioned below that says 'use location'.
+        - when the button is pressed an asynchronous call is made to get the users location.
+        - while waiting the text of the button displays 'Loading...'.
+        - when the call is back the map centers at the users location.
+        - the application is re-routed to the form route
+        - the geolocation button no longer displays
+
+    The Concept
+        - The implementation is in 4 steps
+        - Create a custom hook to obtain user geolocation
+        - Utilize the geolocation hook to get users position
+        - Synchronise the mapPosition state with the fetched user geolocation
+        - Hide Geolocation Button Once Map Component Center has Changed
+
+    The Implementation
+        - CREATE custom hook
+            - extract the fetching of users geolocation into a hook called useGeolocation(setPosition)
+            - this hook will create 3 states & 1 function 'isLoading state', 'position state', 'error state', 'fetchLocation function'
+            - this hook will return this 4 items.
+            - the getPosition function uses the window navigator api to fetch of user location & changes the position, isLoading & error state according
+        - UTILIZE the geolocation hook
+            - in the map container we create a button component of type position WHOSE handleClick property calls the fetchLocation function
+            - using the isLoading state we conditionally render the textContent of the button
+        - SYNCHRONISE user geolocation with mapPosition
+            - utilizing a useEffect we set the mapPosition state if position state is a truthy value.
+        - HIDE button
+            - we display the Button component conditionally. it would depend on if the position is a truthy value.
+    
+
+
+
+      
+
+
+
         
 
 

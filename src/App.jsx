@@ -8,6 +8,7 @@ import Homepage from './pages/Homepage'
 import PageNotFound from './pages/PageNotFound'
 import Pricing from './pages/Pricing'
 import Product from './pages/Product'
+import Form from './components/Form'
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
               <Route path='cities' element={<CityList />} />
               <Route path='cities/:id' element={<City />} />
               <Route path='countries' element={<CountryList />} />
+              <Route path='form' element={<Form />} />
             </Route>
             <Route path='*' element={<PageNotFound />}/>
         </Routes>
