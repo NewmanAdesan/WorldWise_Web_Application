@@ -416,6 +416,30 @@ Step 3: Implementing App Navigation in the App Layout page
 
 
 
+    Step 13: Converting to an Advanced State management (Context API + useReducer)
+
+        StoryLine
+            - our application state management uses Context Api only 
+            - it also has 4 main state 'cities', 'isLoading', 'error', 'currentCity'
+            - it also we have several asynchronous event handlers e.g getCity, createCity, deleteCity, loadCities(useEffect) e.t.c for our consumers which will eventually update the state.
+            - the problem is that our state update are not centralized and they are not tagged and this may hinder scalability
+            - also, each in the event handlers we usually update two or more state OUT OF THE FOUR STATE in a scattered/individualistic way
+            - this is why we are migrating to another similar but better state management technique which utilizes USEREDUCER 
+            - we useReducer, we dispatch a form of state update and each form can update two or more state WHICH BRINGS A MORE COMPACT DESIGN
+            - with useReducer, we centralize all form of state update in a particular place which enhances READABILITY & SCALABILITY.
+            - ofcourse we would still have our event handlers ONLY BECAUSE they are asynchronous functions THUS they are not pure & when working with reducers, we work with pure function nonetheless, in this event handlers, we dispatch forms of state update.
+
+
+        Concept
+            - Refactoring will be done in 4 task
+            - Specify Initial State Object which encapsulates all our state
+            - Specify the Reducer Function which encapsulates the Implementation of all forms of state update
+            - Utilize the useReducer Hook which incoporates the 'Initial State' & 'Reducer Function' and gives us a dispatch function so we can exercise any form of state update
+            - Utilizing the dispatch function to exercise any form of state update
+
+
+
+
       
 
 

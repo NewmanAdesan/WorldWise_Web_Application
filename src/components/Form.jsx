@@ -107,7 +107,7 @@ function Form() {
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        <DatePicker selected={date} onChange={(date) => setDate(date)} id={date} dateFormat="dd/MM/yyyy" />
+        <DatePicker selected={date} onChange={(date) => setDate(date)} id="date" dateFormat="dd/MM/yyyy" />
       </div>
 
       <div className={styles.row}>
@@ -121,7 +121,7 @@ function Form() {
 
       <div className={styles.buttons}>
         <Button type="primary" >Add</Button>
-        <Button type="back"  handleClick={(e)=>{
+        <Button type="back" handleClick={(e)=>{
             e.preventDefault();
             navigate(-1);
         }}>

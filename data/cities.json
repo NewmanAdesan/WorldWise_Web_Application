@@ -49,28 +49,16 @@
       "id": 98443202
     },
     {
-      "cityName": "Buynaksk",
-      "country": "Russian Federation (the)",
-      "emoji": "🇷🇺",
-      "date": "2023-12-21T13:21:10.926Z",
-      "notes": "Wonderful Experience",
+      "cityName": "Lagos",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2023-12-21T16:20:45.185Z",
+      "notes": "",
       "position": {
-        "lat": "42.79540065303723",
-        "lng": "46.99951171875001"
+        "lat": "6.4474",
+        "lng": "3.3903"
       },
       "id": 98443203
-    },
-    {
-      "cityName": "Nikolayevskaya",
-      "country": "Russian Federation (the)",
-      "emoji": "🇷🇺",
-      "date": "2023-12-21T13:29:38.840Z",
-      "notes": "YES YES",
-      "position": {
-        "lat": "47.62097541515849",
-        "lng": "41.41845703125001"
-      },
-      "id": 98443205
     }
   ]
 }
