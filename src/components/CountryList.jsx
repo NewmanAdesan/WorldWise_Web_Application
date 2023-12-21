@@ -7,7 +7,6 @@ const CountryList = () => {
 
   // consume the cities context
   const {cities} = useCitiesContext();
-  console.log(cities);
 
   // extract distinct contries from list of cities information
   const countries = cities.reduce((acc, cur)=>{
@@ -20,7 +19,11 @@ const CountryList = () => {
 
   return (
     <ul className={styles.countryList}>
-      {countries.map(country => <CountryItem country={country} key={country} /> )}
+      {countries.map(
+          (country, index) => {
+            return <CountryItem country={country} key={country.country} /> 
+          }
+      )}
     </ul>
   )
 }

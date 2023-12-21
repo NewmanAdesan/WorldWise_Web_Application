@@ -1,9 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
-
 const BASE_URL = "http://localhost:9000"
 const citiesContext = createContext();
-
 
 const CitiesContext = ({children}) => {
 
@@ -32,24 +30,48 @@ const CitiesContext = ({children}) => {
     const getCity = async (id) => {
         try {
             setIsLoading(true);
+
             const response = await fetch(`${BASE_URL}/cities/${id}`);
             const data = await response.json();
-            console.log("in getCity function: ", data);
+
             if (data === {}) setError("City Does not Exist in the database")
             else {
                 setCurrentCity(data);
                 setError("");
             }
         } catch (error) {
-            console.log(error);
             setError("Error Occurred Whilst Fetcing City Data");
         } finally {
             setIsLoading(false);
         }
     }
 
+    const createCity = async (newCityInfo) => {
+        try {
+            setIsLoading(true);
+
+            // post new city information to update the remote state
+            const response = await fetch(`${BASE_URL}/cities`, {
+                method: "POST",
+                body: JSON.stringify(newCityInfo),
+                headers: {
+                    'Content-Type': "application/json",
+                }
+            });
+            const data = await response.json();
+
+            // update the UI state
+            setCities(cities => [...cities, data])
+        } catch (error) {
+            console.log(error);
+            setError("Error Occurred Whilst Sending City Data");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
-    <citiesContext.Provider value={{cities, isLoading, setIsLoading, currentCity, error, getCity}}>
+    <citiesContext.Provider value={{cities, isLoading, setIsLoading, currentCity, error, getCity, createCity}}>
         {children}
     </citiesContext.Provider>
     )

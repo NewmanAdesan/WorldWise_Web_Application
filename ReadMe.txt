@@ -315,37 +315,82 @@ Step 3: Implementing App Navigation in the App Layout page
 
 
 
- Step 10: The Geolocation Feature
+    Step 10: The Geolocation Feature
 
-    The Story
-        - there is a button in the map location, positioned below that says 'use location'.
-        - when the button is pressed an asynchronous call is made to get the users location.
-        - while waiting the text of the button displays 'Loading...'.
-        - when the call is back the map centers at the users location.
-        - the application is re-routed to the form route
-        - the geolocation button no longer displays
+        The Story
+            - there is a button in the map location, positioned below that says 'use location'.
+            - when the button is pressed an asynchronous call is made to get the users location.
+            - while waiting the text of the button displays 'Loading...'.
+            - when the call is back the map centers at the users location.
+            - the application is re-routed to the form route
+            - the geolocation button no longer displays
 
-    The Concept
-        - The implementation is in 4 steps
-        - Create a custom hook to obtain user geolocation
-        - Utilize the geolocation hook to get users position
-        - Synchronise the mapPosition state with the fetched user geolocation
-        - Hide Geolocation Button Once Map Component Center has Changed
+        The Concept
+            - The implementation is in 4 steps
+            - Create a custom hook to obtain user geolocation
+            - Utilize the geolocation hook to get users position
+            - Synchronise the mapPosition state with the fetched user geolocation
+            - Hide Geolocation Button Once Map Component Center has Changed
 
-    The Implementation
-        - CREATE custom hook
-            - extract the fetching of users geolocation into a hook called useGeolocation(setPosition)
-            - this hook will create 3 states & 1 function 'isLoading state', 'position state', 'error state', 'fetchLocation function'
-            - this hook will return this 4 items.
-            - the getPosition function uses the window navigator api to fetch of user location & changes the position, isLoading & error state according
-        - UTILIZE the geolocation hook
-            - in the map container we create a button component of type position WHOSE handleClick property calls the fetchLocation function
-            - using the isLoading state we conditionally render the textContent of the button
-        - SYNCHRONISE user geolocation with mapPosition
-            - utilizing a useEffect we set the mapPosition state if position state is a truthy value.
-        - HIDE button
-            - we display the Button component conditionally. it would depend on if the position is a truthy value.
-    
+        The Implementation
+            - CREATE custom hook
+                - extract the fetching of users geolocation into a hook called useGeolocation(setPosition)
+                - this hook will create 3 states & 1 function 'isLoading state', 'position state', 'error state', 'fetchLocation function'
+                - this hook will return this 4 items.
+                - the getPosition function uses the window navigator api to fetch of user location & changes the position, isLoading & error state according
+            - UTILIZE the geolocation hook
+                - in the map container we create a button component of type position WHOSE handleClick property calls the fetchLocation function
+                - using the isLoading state we conditionally render the textContent of the button
+            - SYNCHRONISE user geolocation with mapPosition
+                - utilizing a useEffect we set the mapPosition state if position state is a truthy value.
+            - HIDE button
+                - we display the Button component conditionally. it would depend on if the position is a truthy value.
+
+
+
+
+    Step 11: Adding a City Information
+        The Story
+            - when any part of the map is clicked, the application is redirected to the form route.
+            - the Form component corresponds to the form route and it has basically 3 input fields and 2 buttons
+            - the 3 input fields are for the 'city name', 'a date' & 'a note' respectively
+            - the 2 buttons are for 'an Add button' & 'a Back button' 
+            - this 'Adds the city data in the form to the database' & 'Navigate back in the url visitation history' respectively
+
+            - THE FIELDS
+            - the Form component is mounted when the form route is called and the form route is called with 2 search parameters 'lat' & 'lng'
+            - automatically the city that corresponds to this 'lat' & 'lng' position is gotten & the 'city name FIELD' is filled.
+            - in the 'date FIELD', there is a date picker component that allows user to choose a date seamlessly
+            - the note FIELD is simply a text area element.
+
+            - THE BUTTON
+            - when the Add button is clicked, THE FORM COMOPONENT DIMS A BIT TO SHOW THAT SUBMISSION IS GOING ON (OPACITY) 
+            - then the application is redirected to the cities route that shows a list of cities 
+            - and lo & behold the Newly Added city information is found there.
+
+        The Implementation
+            - THE CITY FIELD
+            - the form route is called with 2 search parameters 'lat' & 'lng'
+            - using reverse geolocation we get the city that corresponds 'lat & lng location' and place it in the name in the 'city/country FIELD'
+            - for the reverse geolocation we use 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=67&longitude=23'
+            - also beside the cityname is a emoji flag for the country of the location 
+            - HOW? we have a converToEmoji function that takes in the countryCode of a location and returns the flag emoji string
+            
+            - THE DATE PICKER
+            - to enable a friendly way of handling the date we will using a 3rd party library called react-date-picker
+
+            - THE BACK BUTTON
+            - this button is located in the form so firstly we make sure to prevent default action on click
+            - then we utilize the useNavigate hook from react router dom to navigation application back in the url visitation history
+
+            - THE ADD BUTTON
+            - since this is the actual submit button. we do not prevent default on click
+            - instead we handle the on submit event on the form element. it is at this point we prevent default and handle submit our way.
+            - in our way to submit we place all state value regarding the form cityName, countryName, date, note, emoji, position in an object
+            - by using a function 'createCity' we post this information to the database.
+            - finally we programmatically navigate the application back to the cities route so user can see the newly added city
+            - the 'createCity function' is located in our application citiesContext. it utilizes the FETCH API to post the data to the database
+            - it also updates the UI state corresponding to the list of cities. this means it updates the remote state & ui state
 
 
 

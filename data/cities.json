@@ -35,6 +35,66 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Lagos",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2023-12-21T13:08:26.170Z",
+      "notes": "Enjoyed my self",
+      "position": {
+        "lat": "6.4474",
+        "lng": "3.3903"
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Buynaksk",
+      "country": "Russian Federation (the)",
+      "emoji": "🇷🇺",
+      "date": "2023-12-21T13:21:10.926Z",
+      "notes": "Wonderful Experience",
+      "position": {
+        "lat": "42.79540065303723",
+        "lng": "46.99951171875001"
+      },
+      "id": 98443203
+    },
+    {
+      "cityName": "Shelestovo",
+      "country": "Russian Federation (the)",
+      "emoji": "🇷🇺",
+      "date": "2023-12-21T13:22:05.290Z",
+      "notes": "Interesting",
+      "position": {
+        "lat": "47.989921667414194",
+        "lng": "44.03320312500001"
+      },
+      "id": 98443204
+    },
+    {
+      "cityName": "Nikolayevskaya",
+      "country": "Russian Federation (the)",
+      "emoji": "🇷🇺",
+      "date": "2023-12-21T13:29:38.840Z",
+      "notes": "YES YES",
+      "position": {
+        "lat": "47.62097541515849",
+        "lng": "41.41845703125001"
+      },
+      "id": 98443205
+    },
+    {
+      "cityName": "Dargun",
+      "country": "Germany",
+      "emoji": "🇩🇪",
+      "date": "2023-12-21T13:31:52.025Z",
+      "notes": "",
+      "position": {
+        "lat": "53.85252660044951",
+        "lng": "12.832031250000002"
+      },
+      "id": 98443206
     }
   ]
 }
